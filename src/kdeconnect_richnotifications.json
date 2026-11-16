@@ -1,0 +1,25 @@
+{
+  "KPlugin": {
+    "Id": "kdeconnect_richnotifications",
+    "Name": "Rich notifications",
+    "Description": "Share notifications with chat avatars, website icons, and screenshot previews.",
+    "Icon": "preferences-desktop-notification",
+    "EnabledByDefault": false,
+    "License": "GPL",
+    "Authors": [
+      {
+        "Name": "Holger Kaelberer",
+        "Email": "holger.k@elberer.de"
+      },
+      {
+        "Name": "fixtSE"
+      }
+    ]
+  },
+  "X-KdeConnect-OutgoingPacketType": [
+    "kdeconnect.notification"
+  ],
+  "X-KdeConnect-SupportedPacketType": [
+    "kdeconnect.notification.request"
+  ]
+}

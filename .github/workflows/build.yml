@@ -1,0 +1,21 @@
+name: Build and test
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  arch-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build development image
+        run: docker build -t richnotifications-dev -f .devcontainer/Dockerfile .
+      - name: Build against installed KDE Connect and run tests
+        run: |
+          docker run --rm -v "$PWD:/work" -w /work richnotifications-dev sh -eu -c '
+            version=$(pacman -Q kdeconnect | cut -d" " -f2 | sed "s/-[^-]*$//")
+            git clone --depth 1 --branch "v$version" https://invent.kde.org/network/kdeconnect-kde.git /tmp/kdeconnect
+            cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DKDECONNECT_SOURCE_DIR=/tmp/kdeconnect
+            cmake --build build -j4
+            ctest --test-dir build --output-on-failure
+            python3 -m unittest discover -s tests -v
+          '
