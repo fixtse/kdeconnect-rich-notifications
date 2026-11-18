@@ -11,9 +11,6 @@
 #include "dbusnotificationslistener.h"
 #elif defined(Q_OS_WIN)
 #include "windowsnotificationslistener.h"
-#include <windows.h>
-
-#include <appmodel.h> // GetCurrentPackageFullName
 #endif
 #include <KPluginFactory>
 
@@ -26,11 +23,7 @@ SendNotificationsPlugin::SendNotificationsPlugin(QObject *parent, const QVariant
 #if defined(Q_OS_UNIX) && !defined(Q_OS_DARWIN)
     notificationsListener = new DBusNotificationsListener(this);
 #elif defined(Q_OS_WIN)
-    std::uint32_t bufferLength = 100;
-    std::array<wchar_t, 100> buffer;
-    if (GetCurrentPackageFullName(&bufferLength, buffer.data()) == ERROR_SUCCESS) {
-        notificationsListener = new WindowsNotificationsListener(this);
-    }
+    notificationsListener = new WindowsNotificationsListener(this);
 #endif
 }
 

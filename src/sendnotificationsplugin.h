@@ -25,5 +25,5 @@ public:
     ~SendNotificationsPlugin() override;
 
 protected:
-    NotificationsListener *notificationsListener;
+    NotificationsListener *notificationsListener = nullptr;
 };

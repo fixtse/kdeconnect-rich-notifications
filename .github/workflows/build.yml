@@ -19,3 +19,21 @@ jobs:
             ctest --test-dir build --output-on-failure
             python3 -m unittest discover -s tests -v
           '
+  windows-native:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ilammy/msvc-dev-cmd@v1
+      - name: Compile Windows SDK backend
+        run: cmake -S . -B build-windows -G Ninja -DRICH_NOTIFICATIONS_WINDOWS_BACKEND_ONLY=ON
+      - run: cmake --build build-windows
+      - run: ctest --test-dir build-windows --output-on-failure
+  notify:
+    if: always() && github.ref == 'refs/heads/port/windows'
+    needs: [arch-linux, windows-native]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Signal validation completion
+        env:
+          CALLBACK: ${{ secrets.PORT_VALIDATION_CALLBACK }}
+        run: curl --fail --silent --show-error -X POST -H 'Content-Type:application/json' --data '{"job":"windows-port-ci","run":"${{ github.run_id }}"}' "$CALLBACK"

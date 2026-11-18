@@ -31,6 +31,7 @@ Kirigami.ScrollablePage {
 
         CheckBox {
             id: persistent
+            visible: Qt.platform.os !== "windows"
             text: i18nd("kdeconnect-plugins", "Persistent notifications only")
             focus: true
             onClicked: config.set("generalPersistent", checked)
@@ -53,6 +54,7 @@ Kirigami.ScrollablePage {
 
         SpinBox {
             id: urgency
+            visible: Qt.platform.os !== "windows"
             Kirigami.FormData.label: i18nd("kdeconnect-plugins", "Minimum urgency level:")
             from: 0
             to: 2

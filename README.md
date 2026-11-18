@@ -1,6 +1,6 @@
 # KDE Connect Rich Notifications
 
-A separate Linux desktop plugin for KDE Connect. Share notification text with
+A separate desktop plugin for KDE Connect. Share notification text with
 **chat avatars, website icons and screenshot previews**, directly over the
 existing paired, encrypted KDE Connect connection. Compatible receivers include
 Android and [KDE for Home Assistant](https://github.com/fixtse/kdeforhomeassistant).
@@ -12,7 +12,12 @@ This is an independent, community plugin derived from KDE Connect. It is not an
 official KDE release. Original attribution and licenses are retained; see
 [NOTICE.md](NOTICE.md) and [LICENSE](LICENSE).
 
-## Requirements and compatibility
+Linux supports the rich images described above. An **experimental Windows source
+port** forwards text and application logos with a suitably packaged KDE Connect
+host. See the [Windows build and packaging guide](docs/WINDOWS.md) for requirements
+and limitations. macOS is not supported.
+
+## Linux requirements and compatibility
 
 - Linux desktop with a running session D-Bus and native desktop notifications.
 - KDE Connect built with Qt 6 (Qt >= 6.7), C++20 compiler, CMake >= 3.22 and Ninja.
