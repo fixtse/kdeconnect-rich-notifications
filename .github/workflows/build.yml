@@ -28,12 +28,3 @@ jobs:
         run: cmake -S . -B build-windows -G Ninja -DRICH_NOTIFICATIONS_WINDOWS_BACKEND_ONLY=ON
       - run: cmake --build build-windows
       - run: ctest --test-dir build-windows --output-on-failure
-  notify:
-    if: always() && github.ref == 'refs/heads/port/windows'
-    needs: [arch-linux, windows-native]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Signal validation completion
-        env:
-          CALLBACK: ${{ secrets.PORT_VALIDATION_CALLBACK }}
-        run: curl --fail --silent --show-error -X POST -H 'Content-Type:application/json' --data '{"job":"windows-port-ci","run":"${{ github.run_id }}"}' "$CALLBACK"

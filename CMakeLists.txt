@@ -95,7 +95,11 @@ if(BUILD_TESTING AND NOT WIN32)
 endif()
 file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/compatibility.json"
     "{\"kdeconnect\":\"${KDECONNECT_VERSION}\",\"qt\":\"${Qt6Core_VERSION}\",\"project\":\"${PROJECT_VERSION}\"}\n")
-install(TARGETS kdeconnect_richnotifications LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}/qt6/plugins/kdeconnect"
-    RUNTIME DESTINATION "plugins/kdeconnect")
+if(WIN32)
+    install(TARGETS kdeconnect_richnotifications LIBRARY DESTINATION "plugins/kdeconnect"
+        RUNTIME DESTINATION "plugins/kdeconnect")
+else()
+    install(TARGETS kdeconnect_richnotifications LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}/qt6/plugins/kdeconnect")
+endif()
 install(FILES src/kdeconnect_richnotifications_config.qml DESTINATION share/kdeconnect)
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/compatibility.json" DESTINATION share/kdeconnect-rich-notifications)

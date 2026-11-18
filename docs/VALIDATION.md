@@ -61,3 +61,22 @@ and other desktop notification servers have not been verified. The hosted GitHub
 workflow is configured to repeat the source build against the Arch package's
 matching upstream version; this record describes remote execution performed
 before publication, not a claim about a future workflow run.
+
+## Windows port — 2026-11-18
+
+Source revision `a41257ee89cc7a7e0761b3efd7040679a1a711ce` was checked in
+[GitHub Actions run 44303300584](https://github.com/fixtse/kdeconnect-rich-notifications/actions/runs/44303300584).
+Both `windows-native` and `arch-linux` jobs passed. The temporary completion
+notification job failed independently and has been removed.
+
+The Windows job compiled the C++/WinRT native backend with MSVC and the Windows
+SDK and passed the unpackaged-access test, including repeated start/stop calls.
+The Linux job built the full plugin and passed CTest and four installer tests.
+The same Linux checks also passed in the isolated remote checkout
+`/home/fixt/agent-work/kdeconnect-rich-windows-20261118-checked` at that revision,
+using the existing development image and matching 26.08.3 headers.
+
+The Qt Windows adapter, complete KDE SDK DLL, package installation, permission
+prompt and live notification forwarding have not been validated on Windows.
+This remains an experimental source port; CI success for the native backend
+is not a claim of full Windows runtime validation.
